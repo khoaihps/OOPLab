@@ -30,4 +30,3 @@ public class Calculator {
         System.exit(0);
     }
 }
-
