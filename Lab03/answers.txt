@@ -1,0 +1,2 @@
+1. Is JAVA a Pass by Value or a Pass by Reference programming language?
+In Java, arguments are passed by value. When a method is called, the values of the arguments are copied and passed to the method. This means that changes made to the parameter inside the method do not affect the original variable that was passed in.
