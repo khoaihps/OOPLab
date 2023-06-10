@@ -1,0 +1,50 @@
+Question: 
+Alternatively, to compare items in the cart, instead of using Comparator, we can use the Comparable interface and override the compareTo()method. 
+You can refer to the Java docs to see the information of this interface.
+
+Suppose we are taking this Comparable interface approach.
+- What class should implement the Comparable interface?
+- In those classes, how should you implement the compareTo()method be to reflect the ordering that we want?
+- Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?
+- Suppose the DVDs has a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?
+
+
+Answer: 
+1. The class that should implement the Comparable interface is the class representing the item we want to compare. In this case, the Media class should implement the Comparable interface.
+
+2. In the Media class, we should implement the compareTo() method to reflect the desired ordering. The method should return a negative integer if the current instance should come before the compared instance, a positive integer if the current instance should come after the compared instance, and zero if they are considered equal.
+
+To reflect the ordering by title, we can compare the titles using the compareTo() method of the String class:
+@Override
+public int compareTo(Media other) {
+    return this.getTitle().compareTo(other.getTitle());
+}
+
+To reflect the ordering by cost, we can compare the costs using the Float.compare() method:
+@Override
+public int compareTo(Media other) {
+    return Float.compare(this.getCost(), other.getCost());
+}
+
+3. No, we cannot have two ordering rules (by title then cost and by cost then title) if we use the Comparable interface approach. The compareTo() method should define a single consistent ordering for the items.
+
+4. If DVDs have a different ordering rule, we can override the compareTo() method in the DVD class to reflect the specific ordering. 
+Example implementation:
+public class DigitalVideoDisc extends Media implements Comparable<DigitalVideoDisc> {
+    // ...
+    @Override
+    public int compareTo(DigitalVideoDisc other) {
+        int titleComparison = this.getTitle().compareTo(other.getTitle());
+        if (titleComparison != 0) {
+            return titleComparison;
+        } else {
+            int lengthComparison = Integer.compare(other.getLength(), this.getLength());
+            if (lengthComparison != 0) {
+                return lengthComparison;
+            } else {
+                return Float.compare(this.getCost(), other.getCost());
+            }
+        }
+    }
+}
+By implementing the Comparable<DigitalVideoDisc> interface, we ensure that the compareTo() method is specific to comparing DigitalVideoDisc objects. The method compares the titles, lengths, and costs of the DVDs to determine their ordering.
