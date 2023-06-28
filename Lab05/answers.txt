@@ -1,0 +1,11 @@
+Question: 
+The Aims class must be updated to handle any exceptions generated when the play() methods are called. What happens when you don’t update for them to catch?
+
+Answer: 
+Here's what happens when we don't handle the exceptions:
+
+- Compilation Errors: If we didn't update the Aims class to handle the exceptions thrown by the play() methods, we would likely encounter compilation errors. This is because the play() methods in DigitalVideoDisc and CompactDisc now throw PlayerException, and the calling code in Aims must handle or declare this exception.
+
+- Unhandled Exception at Runtime: If we ignore the compilation errors or run the code without handling the exceptions, and if the play() method is called on a DigitalVideoDisc or CompactDisc object with an invalid length (0 or less), a PlayerException will be thrown. Since there is no surrounding exception handling code, the exception will propagate up the call stack until it reaches the top-level exception handler, which might be the default exception handler provided by the JVM. This will cause the program to terminate and display an error message.
+
+- Program Termination: When an unhandled exception reaches the top-level exception handler, the program typically terminates, and the exception details are printed to the console. This can disrupt the normal flow of the program and potentially leave resources or data in an inconsistent state.
